@@ -1,0 +1,20 @@
+/** Nomes de permissão (coincidem com Permissoes.name no backend). */
+export const PERMISSIONS = {
+  CRIAR_USUARIOS: 'CRIAR_USUARIOS',
+  CRIAR_NUCLEOS: 'CRIAR_NUCLEOS',
+  CRIAR_REGIOES: 'CRIAR_REGIOES',
+  VER_NUCLEOS: 'VER_NUCLEOS',
+  VER_REGIOES: 'VER_REGIOES',
+  EXPORTAR_NUCLEOS: 'EXPORTAR_NUCLEOS',
+  EXPORTAR_REGIOES: 'EXPORTAR_REGIOES',
+  ADMINISTRADOR: 'ADMINISTRADOR',
+} as const
+
+export type Permission = (typeof PERMISSIONS)[keyof typeof PERMISSIONS]
+
+/** Permissões que dão acesso ao painel web (ADMINISTRADOR entra sempre). */
+export const PANEL_ACCESS_PERMISSIONS: Permission[] = [
+  PERMISSIONS.CRIAR_USUARIOS,
+  PERMISSIONS.CRIAR_NUCLEOS,
+  PERMISSIONS.CRIAR_REGIOES,
+]
