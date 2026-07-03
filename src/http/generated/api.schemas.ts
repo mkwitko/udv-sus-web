@@ -32,16 +32,7 @@ export type SignOut201 = {
   message: string;
 };
 
-export type CreateUserBody = {
-  nome: string;
-  cpf?: string;
-  senha: string;
-  email: string;
-  permissoes: string;
-  nucleoId: string;
-};
-
-export type CreateUser201PermissoesItem = {
+export type FindMe201PermissoesItem = {
   id: string;
   name: string;
 };
@@ -49,7 +40,7 @@ export type CreateUser201PermissoesItem = {
 /**
  * @nullable
  */
-export type CreateUser201NucleoRegioes = {
+export type FindMe201NucleoRegioes = {
   id: string;
   nome: string;
 } | null;
@@ -57,32 +48,33 @@ export type CreateUser201NucleoRegioes = {
 /**
  * @nullable
  */
-export type CreateUser201Nucleo = {
+export type FindMe201Nucleo = {
   id: string;
   nome: string;
   /** @nullable */
-  regioes: CreateUser201NucleoRegioes;
+  regioes: FindMe201NucleoRegioes;
 } | null;
 
-export type CreateUser201 = {
+export type FindMe201 = {
   id: string;
   nome: string;
   /** @nullable */
   email: string | null;
-  permissoes: CreateUser201PermissoesItem[];
   /** @nullable */
-  nucleo: CreateUser201Nucleo;
+  grau: string | null;
+  bypass: boolean;
+  /** @nullable */
+  cargoNome: string | null;
+  /** @nullable */
+  cargoCodigo: string | null;
+  cargos?: string[];
+  permissoes: FindMe201PermissoesItem[];
+  /** @nullable */
+  nucleo: FindMe201Nucleo;
 };
 
-export type DeleteUserBody = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  soft?: boolean;
-};
-
-export type DeleteUser201 = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
+export type FindMe409 = {
+  message: string;
 };
 
 /**
@@ -137,72 +129,17 @@ export type FindUserById201 = {
   nome: string;
   /** @nullable */
   email: string | null;
+  /** @nullable */
+  grau: string | null;
+  bypass: boolean;
+  /** @nullable */
+  cargoNome: string | null;
+  /** @nullable */
+  cargoCodigo: string | null;
+  cargos?: string[];
   permissoes: FindUserById201PermissoesItem[];
   /** @nullable */
   nucleo: FindUserById201Nucleo;
-};
-
-export type UpdateUserBody = {
-  id: string;
-  nome?: string;
-  cpf?: string;
-  senha?: string;
-  email?: string;
-  ativo?: boolean;
-  administrador?: boolean;
-  nucleoId?: string;
-  deletado?: boolean;
-  deletadoEm?: string;
-  permissoes: string;
-};
-
-export type UpdateUser201 = {
-  id: string;
-  nome: string;
-  /** @nullable */
-  email: string | null;
-};
-
-export type FindMe201PermissoesItem = {
-  id: string;
-  name: string;
-};
-
-/**
- * @nullable
- */
-export type FindMe201NucleoRegioes = {
-  id: string;
-  nome: string;
-} | null;
-
-/**
- * @nullable
- */
-export type FindMe201Nucleo = {
-  id: string;
-  nome: string;
-  /** @nullable */
-  regioes: FindMe201NucleoRegioes;
-} | null;
-
-export type FindMe201 = {
-  id: string;
-  nome: string;
-  /** @nullable */
-  email: string | null;
-  permissoes: FindMe201PermissoesItem[];
-  /** @nullable */
-  nucleo: FindMe201Nucleo;
-};
-
-export type FindMe409 = {
-  message: string;
-};
-
-export type InitUser201 = {
-  id: string;
-  nome: string;
 };
 
 export type PostChacronaCreateBody = {
@@ -414,49 +351,6 @@ export type GetMariri200Item = {
   origemMensagem: string;
 };
 
-export type CreateNucleoBody = {
-  nome: string;
-  regioesId: string;
-};
-
-/**
- * @nullable
- */
-export type CreateNucleo201Regioes = {
-  id: string;
-  nome: string;
-} | null;
-
-export type CreateNucleo201 = {
-  id: string;
-  nome: string;
-  /** @nullable */
-  regioes: CreateNucleo201Regioes;
-};
-
-export type UpdateNucleoBody = {
-  id: string;
-  nome?: string;
-  regioesId?: string;
-  deletado?: boolean;
-  deletadoEm?: string;
-};
-
-/**
- * @nullable
- */
-export type UpdateNucleo200Regioes = {
-  id: string;
-  nome: string;
-} | null;
-
-export type UpdateNucleo200 = {
-  id: string;
-  nome: string;
-  /** @nullable */
-  regioes: UpdateNucleo200Regioes;
-};
-
 export type GetNucleoByIdParams = {
 id: string;
 };
@@ -506,14 +400,6 @@ export type GetAllNucleos200Item = {
   regioes: GetAllNucleos200ItemRegioes;
 };
 
-export type DeleteNucleoParams = {
-soft?: boolean;
-};
-
-export type DeleteNucleo200 = {
-  id: string;
-};
-
 export type GetAllRegioes200Item = {
   id: string;
   nome: string;
@@ -530,36 +416,6 @@ export type GetRegionById200 = {
   id: string;
   nome: string;
 } | null;
-
-export type CreateRegiaoBody = {
-  nome: string;
-};
-
-export type CreateRegiao201 = {
-  id: string;
-  nome: string;
-};
-
-export type UpdateRegiaoBody = {
-  id: string;
-  nome?: string;
-};
-
-export type UpdateRegiao201 = {
-  id: string;
-  nome: string;
-};
-
-export type DeleteRegiaoBody = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-  soft?: boolean;
-};
-
-export type DeleteRegiao201 = {
-  /** @pattern ^[cC][^\s-]{8,}$ */
-  id: string;
-};
 
 export type CreatePreparoBodyMariri = {
   pesoKg: string;

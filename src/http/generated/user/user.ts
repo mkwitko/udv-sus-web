@@ -5,37 +5,26 @@
  * OpenAPI spec version: 1.0.0
  */
 import {
-  useMutation,
   useQuery
 } from '@tanstack/react-query';
 import type {
   DataTag,
   DefinedInitialDataOptions,
   DefinedUseQueryResult,
-  MutationFunction,
   QueryClient,
   QueryFunction,
   QueryKey,
   UndefinedInitialDataOptions,
-  UseMutationOptions,
-  UseMutationResult,
   UseQueryOptions,
   UseQueryResult
 } from '@tanstack/react-query';
 
 import type {
-  CreateUser201,
-  CreateUserBody,
-  DeleteUser201,
-  DeleteUserBody,
   FindAllUsers201Item,
   FindMe201,
   FindMe409,
   FindUserById201,
-  FindUserByIdParams,
-  InitUser201,
-  UpdateUser201,
-  UpdateUserBody
+  FindUserByIdParams
 } from '../api.schemas';
 
 import { customInstance } from '../../../lib/api';
@@ -61,19 +50,17 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
 };
 
 /**
- * Create a new user
- * @summary Create User
+ * Find Me
+ * @summary Find Me
  */
-export const createUser = (
-    createUserBody: CreateUserBody,
+export const findMe = (
+
  options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
 ) => {
 
 
-      return customInstance<CreateUser201>(
-      {url: `http://localhost:3000/user/create`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: createUserBody, signal
+      return customInstance<FindMe201>(
+      {url: `http://localhost:3000/user/find/me`, method: 'GET', signal
     },
       options);
     }
@@ -81,116 +68,81 @@ export const createUser = (
 
 
 
-export const getCreateUserMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createUser>>, TError,{data: CreateUserBody}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof createUser>>, TError,{data: CreateUserBody}, TContext> => {
-
-const mutationKey = ['createUser'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createUser>>, {data: CreateUserBody}> = (props) => {
-          const {data} = props ?? {};
-
-          return  createUser(data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type CreateUserMutationResult = NonNullable<Awaited<ReturnType<typeof createUser>>>
-    export type CreateUserMutationBody = CreateUserBody
-    export type CreateUserMutationError = unknown
-
-    /**
- * @summary Create User
- */
-export const useCreateUser = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createUser>>, TError,{data: CreateUserBody}, TContext>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof createUser>>,
-        TError,
-        {data: CreateUserBody},
-        TContext
-      > => {
-      return useMutation(getCreateUserMutationOptions(options), queryClient);
+export const getFindMeQueryKey = () => {
+    return [
+    `http://localhost:3000/user/find/me`
+    ] as const;
     }
-    /**
- * Delete a user
- * @summary Delete User
- */
-export const deleteUser = (
-    deleteUserBody: DeleteUserBody,
- options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+
+
+export const getFindMeQueryOptions = <TData = Awaited<ReturnType<typeof findMe>>, TError = FindMe409>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof findMe>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
 ) => {
 
+const {query: queryOptions, request: requestOptions} = options ?? {};
 
-      return customInstance<DeleteUser201>(
-      {url: `http://localhost:3000/user/delete`, method: 'DELETE',
-      headers: {'Content-Type': 'application/json', },
-      data: deleteUserBody, signal
-    },
-      options);
-    }
+  const queryKey =  queryOptions?.queryKey ?? getFindMeQueryKey();
 
 
 
-
-export const getDeleteUserMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteUser>>, TError,{data: DeleteUserBody}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteUser>>, TError,{data: DeleteUserBody}, TContext> => {
-
-const mutationKey = ['deleteUser'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteUser>>, {data: DeleteUserBody}> = (props) => {
-          const {data} = props ?? {};
-
-          return  deleteUser(data,requestOptions)
-        }
+    const queryFn: QueryFunction<Awaited<ReturnType<typeof findMe>>> = ({ signal }) => findMe(requestOptions, signal);
 
 
 
 
 
+   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof findMe>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
+}
 
-  return  { mutationFn, ...mutationOptions }}
+export type FindMeQueryResult = NonNullable<Awaited<ReturnType<typeof findMe>>>
+export type FindMeQueryError = FindMe409
 
-    export type DeleteUserMutationResult = NonNullable<Awaited<ReturnType<typeof deleteUser>>>
-    export type DeleteUserMutationBody = DeleteUserBody
-    export type DeleteUserMutationError = unknown
 
-    /**
- * @summary Delete User
+export function useFindMe<TData = Awaited<ReturnType<typeof findMe>>, TError = FindMe409>(
+  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof findMe>>, TError, TData>> & Pick<
+        DefinedInitialDataOptions<
+          Awaited<ReturnType<typeof findMe>>,
+          TError,
+          Awaited<ReturnType<typeof findMe>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useFindMe<TData = Awaited<ReturnType<typeof findMe>>, TError = FindMe409>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof findMe>>, TError, TData>> & Pick<
+        UndefinedInitialDataOptions<
+          Awaited<ReturnType<typeof findMe>>,
+          TError,
+          Awaited<ReturnType<typeof findMe>>
+        > , 'initialData'
+      >, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+export function useFindMe<TData = Awaited<ReturnType<typeof findMe>>, TError = FindMe409>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof findMe>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
+/**
+ * @summary Find Me
  */
-export const useDeleteUser = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteUser>>, TError,{data: DeleteUserBody}, TContext>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof deleteUser>>,
-        TError,
-        {data: DeleteUserBody},
-        TContext
-      > => {
-      return useMutation(getDeleteUserMutationOptions(options), queryClient);
-    }
-    /**
+
+export function useFindMe<TData = Awaited<ReturnType<typeof findMe>>, TError = FindMe409>(
+  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof findMe>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient
+ ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
+
+  const queryOptions = getFindMeQueryOptions(options)
+
+  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
+
+  return withQueryKey(query, queryOptions.queryKey);
+}
+
+
+
+
+
+
+/**
  * Find all Users
  * @summary Find All Users
  */
@@ -377,224 +329,3 @@ export function useFindUserById<TData = Awaited<ReturnType<typeof findUserById>>
 
 
 
-/**
- * Update a new user
- * @summary Update User
- */
-export const updateUser = (
-    updateUserBody: UpdateUserBody,
- options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
-) => {
-
-
-      return customInstance<UpdateUser201>(
-      {url: `http://localhost:3000/user/update`, method: 'PUT',
-      headers: {'Content-Type': 'application/json', },
-      data: updateUserBody, signal
-    },
-      options);
-    }
-
-
-
-
-export const getUpdateUserMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateUser>>, TError,{data: UpdateUserBody}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof updateUser>>, TError,{data: UpdateUserBody}, TContext> => {
-
-const mutationKey = ['updateUser'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateUser>>, {data: UpdateUserBody}> = (props) => {
-          const {data} = props ?? {};
-
-          return  updateUser(data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type UpdateUserMutationResult = NonNullable<Awaited<ReturnType<typeof updateUser>>>
-    export type UpdateUserMutationBody = UpdateUserBody
-    export type UpdateUserMutationError = unknown
-
-    /**
- * @summary Update User
- */
-export const useUpdateUser = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateUser>>, TError,{data: UpdateUserBody}, TContext>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof updateUser>>,
-        TError,
-        {data: UpdateUserBody},
-        TContext
-      > => {
-      return useMutation(getUpdateUserMutationOptions(options), queryClient);
-    }
-    /**
- * Find Me
- * @summary Find Me
- */
-export const findMe = (
-
- options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
-) => {
-
-
-      return customInstance<FindMe201>(
-      {url: `http://localhost:3000/user/find/me`, method: 'GET', signal
-    },
-      options);
-    }
-
-
-
-
-export const getFindMeQueryKey = () => {
-    return [
-    `http://localhost:3000/user/find/me`
-    ] as const;
-    }
-
-
-export const getFindMeQueryOptions = <TData = Awaited<ReturnType<typeof findMe>>, TError = FindMe409>( options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof findMe>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
-) => {
-
-const {query: queryOptions, request: requestOptions} = options ?? {};
-
-  const queryKey =  queryOptions?.queryKey ?? getFindMeQueryKey();
-
-
-
-    const queryFn: QueryFunction<Awaited<ReturnType<typeof findMe>>> = ({ signal }) => findMe(requestOptions, signal);
-
-
-
-
-
-   return  { queryKey, queryFn, ...queryOptions} as UseQueryOptions<Awaited<ReturnType<typeof findMe>>, TError, TData> & { queryKey: DataTag<QueryKey, TData, TError> }
-}
-
-export type FindMeQueryResult = NonNullable<Awaited<ReturnType<typeof findMe>>>
-export type FindMeQueryError = FindMe409
-
-
-export function useFindMe<TData = Awaited<ReturnType<typeof findMe>>, TError = FindMe409>(
-  options: { query:Partial<UseQueryOptions<Awaited<ReturnType<typeof findMe>>, TError, TData>> & Pick<
-        DefinedInitialDataOptions<
-          Awaited<ReturnType<typeof findMe>>,
-          TError,
-          Awaited<ReturnType<typeof findMe>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  DefinedUseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFindMe<TData = Awaited<ReturnType<typeof findMe>>, TError = FindMe409>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof findMe>>, TError, TData>> & Pick<
-        UndefinedInitialDataOptions<
-          Awaited<ReturnType<typeof findMe>>,
-          TError,
-          Awaited<ReturnType<typeof findMe>>
-        > , 'initialData'
-      >, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-export function useFindMe<TData = Awaited<ReturnType<typeof findMe>>, TError = FindMe409>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof findMe>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
-  ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> }
-/**
- * @summary Find Me
- */
-
-export function useFindMe<TData = Awaited<ReturnType<typeof findMe>>, TError = FindMe409>(
-  options?: { query?:Partial<UseQueryOptions<Awaited<ReturnType<typeof findMe>>, TError, TData>>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient
- ):  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> } {
-
-  const queryOptions = getFindMeQueryOptions(options)
-
-  const query = useQuery(queryOptions, queryClient) as  UseQueryResult<TData, TError> & { queryKey: DataTag<QueryKey, TData, TError> };
-
-  return withQueryKey(query, queryOptions.queryKey);
-}
-
-
-
-
-
-
-/**
- * Init a new user
- * @summary Init User
- */
-export const initUser = (
-
- options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
-) => {
-
-
-      return customInstance<InitUser201>(
-      {url: `http://localhost:3000/user/init`, method: 'POST', signal
-    },
-      options);
-    }
-
-
-
-
-export const getInitUserMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof initUser>>, TError,void, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof initUser>>, TError,void, TContext> => {
-
-const mutationKey = ['initUser'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof initUser>>, void> = () => {
-
-
-          return  initUser(requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type InitUserMutationResult = NonNullable<Awaited<ReturnType<typeof initUser>>>
-
-    export type InitUserMutationError = unknown
-
-    /**
- * @summary Init User
- */
-export const useInitUser = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof initUser>>, TError,void, TContext>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof initUser>>,
-        TError,
-        void,
-        TContext
-      > => {
-      return useMutation(getInitUserMutationOptions(options), queryClient);
-    }

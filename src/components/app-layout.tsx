@@ -8,39 +8,21 @@ import {
 } from 'lucide-react'
 import { useAuth } from '@/hooks/use-auth'
 import { cn } from '@/lib/utils'
-import { PERMISSIONS } from '@/lib/permissions'
 import { Button } from '@/components/ui/button'
 
+// Painel é só leitura (dados vêm do Cognito). Acesso já é gated na ProtectedRoute.
 const NAV = [
-  { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true, perm: null },
-  {
-    to: '/usuarios',
-    label: 'Usuários',
-    icon: Users,
-    end: false,
-    perm: PERMISSIONS.CRIAR_USUARIOS,
-  },
-  {
-    to: '/regioes',
-    label: 'Regiões',
-    icon: MapPin,
-    end: false,
-    perm: PERMISSIONS.CRIAR_REGIOES,
-  },
-  {
-    to: '/nucleos',
-    label: 'Núcleos',
-    icon: Layers,
-    end: false,
-    perm: PERMISSIONS.CRIAR_NUCLEOS,
-  },
+  { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
+  { to: '/usuarios', label: 'Usuários', icon: Users, end: false },
+  { to: '/regioes', label: 'Regiões', icon: MapPin, end: false },
+  { to: '/nucleos', label: 'Núcleos', icon: Layers, end: false },
 ]
 
 export function AppLayout() {
-  const { user, logout, hasPermission } = useAuth()
+  const { user, logout } = useAuth()
   const navigate = useNavigate()
 
-  const nav = NAV.filter((item) => !item.perm || hasPermission(item.perm))
+  const nav = NAV
 
   async function handleLogout() {
     await logout()

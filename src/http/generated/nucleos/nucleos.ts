@@ -5,35 +5,25 @@
  * OpenAPI spec version: 1.0.0
  */
 import {
-  useMutation,
   useQuery
 } from '@tanstack/react-query';
 import type {
   DataTag,
   DefinedInitialDataOptions,
   DefinedUseQueryResult,
-  MutationFunction,
   QueryClient,
   QueryFunction,
   QueryKey,
   UndefinedInitialDataOptions,
-  UseMutationOptions,
-  UseMutationResult,
   UseQueryOptions,
   UseQueryResult
 } from '@tanstack/react-query';
 
 import type {
-  CreateNucleo201,
-  CreateNucleoBody,
-  DeleteNucleo200,
-  DeleteNucleoParams,
   GetAllNucleos200Item,
   GetNucleoById200,
   GetNucleoByIdParams,
-  GetNucleoRegionId200Item,
-  UpdateNucleo200,
-  UpdateNucleoBody
+  GetNucleoRegionId200Item
 } from '../api.schemas';
 
 import { customInstance } from '../../../lib/api';
@@ -59,136 +49,6 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
 };
 
 /**
- * Create a new Nucleo
- * @summary Create Nucleo
- */
-export const createNucleo = (
-    createNucleoBody: CreateNucleoBody,
- options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
-) => {
-
-
-      return customInstance<CreateNucleo201>(
-      {url: `http://localhost:3000/nucleo/create`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: createNucleoBody, signal
-    },
-      options);
-    }
-
-
-
-
-export const getCreateNucleoMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createNucleo>>, TError,{data: CreateNucleoBody}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof createNucleo>>, TError,{data: CreateNucleoBody}, TContext> => {
-
-const mutationKey = ['createNucleo'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createNucleo>>, {data: CreateNucleoBody}> = (props) => {
-          const {data} = props ?? {};
-
-          return  createNucleo(data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type CreateNucleoMutationResult = NonNullable<Awaited<ReturnType<typeof createNucleo>>>
-    export type CreateNucleoMutationBody = CreateNucleoBody
-    export type CreateNucleoMutationError = unknown
-
-    /**
- * @summary Create Nucleo
- */
-export const useCreateNucleo = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createNucleo>>, TError,{data: CreateNucleoBody}, TContext>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof createNucleo>>,
-        TError,
-        {data: CreateNucleoBody},
-        TContext
-      > => {
-      return useMutation(getCreateNucleoMutationOptions(options), queryClient);
-    }
-    /**
- * Update an existing Nucleo
- * @summary Update Nucleo
- */
-export const updateNucleo = (
-    updateNucleoBody: UpdateNucleoBody,
- options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
-) => {
-
-
-      return customInstance<UpdateNucleo200>(
-      {url: `http://localhost:3000/nucleo/update`, method: 'PUT',
-      headers: {'Content-Type': 'application/json', },
-      data: updateNucleoBody, signal
-    },
-      options);
-    }
-
-
-
-
-export const getUpdateNucleoMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateNucleo>>, TError,{data: UpdateNucleoBody}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof updateNucleo>>, TError,{data: UpdateNucleoBody}, TContext> => {
-
-const mutationKey = ['updateNucleo'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateNucleo>>, {data: UpdateNucleoBody}> = (props) => {
-          const {data} = props ?? {};
-
-          return  updateNucleo(data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type UpdateNucleoMutationResult = NonNullable<Awaited<ReturnType<typeof updateNucleo>>>
-    export type UpdateNucleoMutationBody = UpdateNucleoBody
-    export type UpdateNucleoMutationError = unknown
-
-    /**
- * @summary Update Nucleo
- */
-export const useUpdateNucleo = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateNucleo>>, TError,{data: UpdateNucleoBody}, TContext>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof updateNucleo>>,
-        TError,
-        {data: UpdateNucleoBody},
-        TContext
-      > => {
-      return useMutation(getUpdateNucleoMutationOptions(options), queryClient);
-    }
-    /**
  * Retrieve a Nucleo by its ID
  * @summary Get Nucleo by ID
  */
@@ -468,68 +328,3 @@ export function useGetAllNucleos<TData = Awaited<ReturnType<typeof getAllNucleos
 
 
 
-/**
- * Soft or hard delete a Nucleo
- * @summary Delete Nucleo
- */
-export const deleteNucleo = (
-    id: string,
-    params?: DeleteNucleoParams,
- options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
-) => {
-
-
-      return customInstance<DeleteNucleo200>(
-      {url: `http://localhost:3000/nucleo/${id}`, method: 'DELETE',
-        params, signal
-    },
-      options);
-    }
-
-
-
-
-export const getDeleteNucleoMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteNucleo>>, TError,{id: string;params?: DeleteNucleoParams}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteNucleo>>, TError,{id: string;params?: DeleteNucleoParams}, TContext> => {
-
-const mutationKey = ['deleteNucleo'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteNucleo>>, {id: string;params?: DeleteNucleoParams}> = (props) => {
-          const {id,params} = props ?? {};
-
-          return  deleteNucleo(id,params,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type DeleteNucleoMutationResult = NonNullable<Awaited<ReturnType<typeof deleteNucleo>>>
-
-    export type DeleteNucleoMutationError = unknown
-
-    /**
- * @summary Delete Nucleo
- */
-export const useDeleteNucleo = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteNucleo>>, TError,{id: string;params?: DeleteNucleoParams}, TContext>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof deleteNucleo>>,
-        TError,
-        {id: string;params?: DeleteNucleoParams},
-        TContext
-      > => {
-      return useMutation(getDeleteNucleoMutationOptions(options), queryClient);
-    }

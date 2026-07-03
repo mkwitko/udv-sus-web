@@ -5,34 +5,24 @@
  * OpenAPI spec version: 1.0.0
  */
 import {
-  useMutation,
   useQuery
 } from '@tanstack/react-query';
 import type {
   DataTag,
   DefinedInitialDataOptions,
   DefinedUseQueryResult,
-  MutationFunction,
   QueryClient,
   QueryFunction,
   QueryKey,
   UndefinedInitialDataOptions,
-  UseMutationOptions,
-  UseMutationResult,
   UseQueryOptions,
   UseQueryResult
 } from '@tanstack/react-query';
 
 import type {
-  CreateRegiao201,
-  CreateRegiaoBody,
-  DeleteRegiao201,
-  DeleteRegiaoBody,
   GetAllRegioes200Item,
   GetRegionById200,
-  GetRegionByIdParams,
-  UpdateRegiao201,
-  UpdateRegiaoBody
+  GetRegionByIdParams
 } from '../api.schemas';
 
 import { customInstance } from '../../../lib/api';
@@ -242,198 +232,3 @@ export function useGetRegionById<TData = Awaited<ReturnType<typeof getRegionById
 
 
 
-/**
- * Create a new regiao
- * @summary Create Regiao
- */
-export const createRegiao = (
-    createRegiaoBody: CreateRegiaoBody,
- options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
-) => {
-
-
-      return customInstance<CreateRegiao201>(
-      {url: `http://localhost:3000/regions/create`, method: 'POST',
-      headers: {'Content-Type': 'application/json', },
-      data: createRegiaoBody, signal
-    },
-      options);
-    }
-
-
-
-
-export const getCreateRegiaoMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createRegiao>>, TError,{data: CreateRegiaoBody}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof createRegiao>>, TError,{data: CreateRegiaoBody}, TContext> => {
-
-const mutationKey = ['createRegiao'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof createRegiao>>, {data: CreateRegiaoBody}> = (props) => {
-          const {data} = props ?? {};
-
-          return  createRegiao(data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type CreateRegiaoMutationResult = NonNullable<Awaited<ReturnType<typeof createRegiao>>>
-    export type CreateRegiaoMutationBody = CreateRegiaoBody
-    export type CreateRegiaoMutationError = unknown
-
-    /**
- * @summary Create Regiao
- */
-export const useCreateRegiao = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof createRegiao>>, TError,{data: CreateRegiaoBody}, TContext>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof createRegiao>>,
-        TError,
-        {data: CreateRegiaoBody},
-        TContext
-      > => {
-      return useMutation(getCreateRegiaoMutationOptions(options), queryClient);
-    }
-    /**
- * Update a new regiao
- * @summary Update Regiao
- */
-export const updateRegiao = (
-    updateRegiaoBody: UpdateRegiaoBody,
- options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
-) => {
-
-
-      return customInstance<UpdateRegiao201>(
-      {url: `http://localhost:3000/region/update`, method: 'PUT',
-      headers: {'Content-Type': 'application/json', },
-      data: updateRegiaoBody, signal
-    },
-      options);
-    }
-
-
-
-
-export const getUpdateRegiaoMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateRegiao>>, TError,{data: UpdateRegiaoBody}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof updateRegiao>>, TError,{data: UpdateRegiaoBody}, TContext> => {
-
-const mutationKey = ['updateRegiao'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateRegiao>>, {data: UpdateRegiaoBody}> = (props) => {
-          const {data} = props ?? {};
-
-          return  updateRegiao(data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type UpdateRegiaoMutationResult = NonNullable<Awaited<ReturnType<typeof updateRegiao>>>
-    export type UpdateRegiaoMutationBody = UpdateRegiaoBody
-    export type UpdateRegiaoMutationError = unknown
-
-    /**
- * @summary Update Regiao
- */
-export const useUpdateRegiao = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateRegiao>>, TError,{data: UpdateRegiaoBody}, TContext>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof updateRegiao>>,
-        TError,
-        {data: UpdateRegiaoBody},
-        TContext
-      > => {
-      return useMutation(getUpdateRegiaoMutationOptions(options), queryClient);
-    }
-    /**
- * Delete a regiao by ID
- * @summary Delete Regiao
- */
-export const deleteRegiao = (
-    deleteRegiaoBody: DeleteRegiaoBody,
- options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
-) => {
-
-
-      return customInstance<DeleteRegiao201>(
-      {url: `http://localhost:3000/region/delete`, method: 'DELETE',
-      headers: {'Content-Type': 'application/json', },
-      data: deleteRegiaoBody, signal
-    },
-      options);
-    }
-
-
-
-
-export const getDeleteRegiaoMutationOptions = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteRegiao>>, TError,{data: DeleteRegiaoBody}, TContext>, request?: SecondParameter<typeof customInstance>}
-): UseMutationOptions<Awaited<ReturnType<typeof deleteRegiao>>, TError,{data: DeleteRegiaoBody}, TContext> => {
-
-const mutationKey = ['deleteRegiao'];
-const {mutation: mutationOptions, request: requestOptions} = options ?
-      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
-      options
-      : {...options, mutation: {...options.mutation, mutationKey}}
-      : {mutation: { mutationKey, }, request: undefined};
-
-
-
-
-      const mutationFn: MutationFunction<Awaited<ReturnType<typeof deleteRegiao>>, {data: DeleteRegiaoBody}> = (props) => {
-          const {data} = props ?? {};
-
-          return  deleteRegiao(data,requestOptions)
-        }
-
-
-
-
-
-
-  return  { mutationFn, ...mutationOptions }}
-
-    export type DeleteRegiaoMutationResult = NonNullable<Awaited<ReturnType<typeof deleteRegiao>>>
-    export type DeleteRegiaoMutationBody = DeleteRegiaoBody
-    export type DeleteRegiaoMutationError = unknown
-
-    /**
- * @summary Delete Regiao
- */
-export const useDeleteRegiao = <TError = unknown,
-    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof deleteRegiao>>, TError,{data: DeleteRegiaoBody}, TContext>, request?: SecondParameter<typeof customInstance>}
- , queryClient?: QueryClient): UseMutationResult<
-        Awaited<ReturnType<typeof deleteRegiao>>,
-        TError,
-        {data: DeleteRegiaoBody},
-        TContext
-      > => {
-      return useMutation(getDeleteRegiaoMutationOptions(options), queryClient);
-    }
