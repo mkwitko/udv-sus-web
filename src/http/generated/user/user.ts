@@ -5,16 +5,20 @@
  * OpenAPI spec version: 1.0.0
  */
 import {
+  useMutation,
   useQuery
 } from '@tanstack/react-query';
 import type {
   DataTag,
   DefinedInitialDataOptions,
   DefinedUseQueryResult,
+  MutationFunction,
   QueryClient,
   QueryFunction,
   QueryKey,
   UndefinedInitialDataOptions,
+  UseMutationOptions,
+  UseMutationResult,
   UseQueryOptions,
   UseQueryResult
 } from '@tanstack/react-query';
@@ -24,7 +28,9 @@ import type {
   FindMe201,
   FindMe409,
   FindUserById201,
-  FindUserByIdParams
+  FindUserByIdParams,
+  UpdateUserConfig200,
+  UpdateUserConfigBody
 } from '../api.schemas';
 
 import { customInstance } from '../../../lib/api';
@@ -60,7 +66,7 @@ export const findMe = (
 
 
       return customInstance<FindMe201>(
-      {url: `http://localhost:3000/user/find/me`, method: 'GET', signal
+      {url: `https://dpma-api.udv.org/user/find/me`, method: 'GET', signal
     },
       options);
     }
@@ -70,7 +76,7 @@ export const findMe = (
 
 export const getFindMeQueryKey = () => {
     return [
-    `http://localhost:3000/user/find/me`
+    `https://dpma-api.udv.org/user/find/me`
     ] as const;
     }
 
@@ -153,7 +159,7 @@ export const findAllUsers = (
 
 
       return customInstance<FindAllUsers201Item[]>(
-      {url: `http://localhost:3000/user/find/all`, method: 'GET', signal
+      {url: `https://dpma-api.udv.org/user/find/all`, method: 'GET', signal
     },
       options);
     }
@@ -163,7 +169,7 @@ export const findAllUsers = (
 
 export const getFindAllUsersQueryKey = () => {
     return [
-    `http://localhost:3000/user/find/all`
+    `https://dpma-api.udv.org/user/find/all`
     ] as const;
     }
 
@@ -246,7 +252,7 @@ export const findUserById = (
 
 
       return customInstance<FindUserById201>(
-      {url: `http://localhost:3000/user/find/id`, method: 'GET',
+      {url: `https://dpma-api.udv.org/user/find/id`, method: 'GET',
         params, signal
     },
       options);
@@ -257,7 +263,7 @@ export const findUserById = (
 
 export const getFindUserByIdQueryKey = (params?: FindUserByIdParams,) => {
     return [
-    `http://localhost:3000/user/find/id`, ...(params ? [params] : [])
+    `https://dpma-api.udv.org/user/find/id`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -329,3 +335,68 @@ export function useFindUserById<TData = Awaited<ReturnType<typeof findUserById>>
 
 
 
+/**
+ * Atualiza as funcionalidades opcionais do próprio usuário.
+ * @summary Update User Config
+ */
+export const updateUserConfig = (
+    updateUserConfigBody?: UpdateUserConfigBody,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+
+
+      return customInstance<UpdateUserConfig200>(
+      {url: `https://dpma-api.udv.org/user/config`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: updateUserConfigBody, signal
+    },
+      options);
+    }
+
+
+
+
+export const getUpdateUserConfigMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateUserConfig>>, TError,{data?: UpdateUserConfigBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateUserConfig>>, TError,{data?: UpdateUserConfigBody}, TContext> => {
+
+const mutationKey = ['updateUserConfig'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateUserConfig>>, {data?: UpdateUserConfigBody}> = (props) => {
+          const {data} = props ?? {};
+
+          return  updateUserConfig(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateUserConfigMutationResult = NonNullable<Awaited<ReturnType<typeof updateUserConfig>>>
+    export type UpdateUserConfigMutationBody = UpdateUserConfigBody | undefined
+    export type UpdateUserConfigMutationError = unknown
+
+    /**
+ * @summary Update User Config
+ */
+export const useUpdateUserConfig = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateUserConfig>>, TError,{data?: UpdateUserConfigBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof updateUserConfig>>,
+        TError,
+        {data?: UpdateUserConfigBody},
+        TContext
+      > => {
+      return useMutation(getUpdateUserConfigMutationOptions(options), queryClient);
+    }

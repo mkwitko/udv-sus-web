@@ -67,7 +67,7 @@ export const postLenhaCreate = (
 
 
       return customInstance<PostLenhaCreate201>(
-      {url: `http://localhost:3000/lenha/create`, method: 'POST',
+      {url: `https://dpma-api.udv.org/lenha/create`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postLenhaCreateBody, signal
     },
@@ -131,7 +131,7 @@ export const putLenhaUpdate = (
 
 
       return customInstance<PutLenhaUpdate200>(
-      {url: `http://localhost:3000/lenha/update`, method: 'PUT',
+      {url: `https://dpma-api.udv.org/lenha/update`, method: 'PUT',
       headers: {'Content-Type': 'application/json', },
       data: putLenhaUpdateBody, signal
     },
@@ -195,7 +195,7 @@ export const getLenhaId = (
 
 
       return customInstance<GetLenhaId200>(
-      {url: `http://localhost:3000/lenha/${id}`, method: 'GET', signal
+      {url: `https://dpma-api.udv.org/lenha/${id}`, method: 'GET', signal
     },
       options);
     }
@@ -205,7 +205,7 @@ export const getLenhaId = (
 
 export const getGetLenhaIdQueryKey = (id: string,) => {
     return [
-    `http://localhost:3000/lenha/${id}`
+    `https://dpma-api.udv.org/lenha/${id}`
     ] as const;
     }
 
@@ -288,7 +288,7 @@ export const deleteLenhaId = (
 
 
       return customInstance<DeleteLenhaId200>(
-      {url: `http://localhost:3000/lenha/${id}`, method: 'DELETE',
+      {url: `https://dpma-api.udv.org/lenha/${id}`, method: 'DELETE',
         params, signal
     },
       options);
@@ -351,7 +351,7 @@ export const getLenha = (
 
 
       return customInstance<GetLenha200Item[]>(
-      {url: `http://localhost:3000/lenha`, method: 'GET', signal
+      {url: `https://dpma-api.udv.org/lenha`, method: 'GET', signal
     },
       options);
     }
@@ -361,7 +361,7 @@ export const getLenha = (
 
 export const getGetLenhaQueryKey = () => {
     return [
-    `http://localhost:3000/lenha`
+    `https://dpma-api.udv.org/lenha`
     ] as const;
     }
 

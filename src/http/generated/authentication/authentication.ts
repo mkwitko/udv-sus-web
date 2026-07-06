@@ -65,7 +65,7 @@ export const authenticationStatus = (
 
 
       return customInstance<AuthenticationStatus201>(
-      {url: `http://localhost:3000/authentication/status`, method: 'GET', signal
+      {url: `https://dpma-api.udv.org/authentication/status`, method: 'GET', signal
     },
       options);
     }
@@ -75,7 +75,7 @@ export const authenticationStatus = (
 
 export const getAuthenticationStatusQueryKey = () => {
     return [
-    `http://localhost:3000/authentication/status`
+    `https://dpma-api.udv.org/authentication/status`
     ] as const;
     }
 
@@ -158,7 +158,7 @@ export const signIn = (
 
 
       return customInstance<SignIn201>(
-      {url: `http://localhost:3000/authentication/sign/in`, method: 'POST',
+      {url: `https://dpma-api.udv.org/authentication/sign/in`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: signInBody, signal
     },
@@ -222,7 +222,7 @@ export const refreshToken = (
 
 
       return customInstance<RefreshToken201>(
-      {url: `http://localhost:3000/authentication/refresh`, method: 'POST',
+      {url: `https://dpma-api.udv.org/authentication/refresh`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: refreshTokenBody, signal
     },
@@ -287,7 +287,7 @@ export const signOut = (
 
 
       return customInstance<SignOut201>(
-      {url: `http://localhost:3000/authentication/sign/out`, method: 'POST', signal
+      {url: `https://dpma-api.udv.org/authentication/sign/out`, method: 'POST', signal
     },
       options);
     }

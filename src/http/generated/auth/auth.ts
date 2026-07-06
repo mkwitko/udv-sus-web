@@ -68,7 +68,7 @@ export const checkAuthStatus = (
 
 
       return customInstance<CheckAuthStatus200>(
-      {url: `http://localhost:3000/auth/status`, method: 'GET', signal
+      {url: `https://dpma-api.udv.org/auth/status`, method: 'GET', signal
     },
       options);
     }
@@ -78,7 +78,7 @@ export const checkAuthStatus = (
 
 export const getCheckAuthStatusQueryKey = () => {
     return [
-    `http://localhost:3000/auth/status`
+    `https://dpma-api.udv.org/auth/status`
     ] as const;
     }
 
@@ -161,7 +161,7 @@ export const googleOAuthCallback = (
 
 
       return customInstance<void>(
-      {url: `http://localhost:3000/auth/google/callback`, method: 'GET',
+      {url: `https://dpma-api.udv.org/auth/google/callback`, method: 'GET',
         params, signal
     },
       options);
@@ -172,7 +172,7 @@ export const googleOAuthCallback = (
 
 export const getGoogleOAuthCallbackQueryKey = (params?: GoogleOAuthCallbackParams,) => {
     return [
-    `http://localhost:3000/auth/google/callback`, ...(params ? [params] : [])
+    `https://dpma-api.udv.org/auth/google/callback`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -255,7 +255,7 @@ export const cleanupExpiredTokens = (
 
 
       return customInstance<CleanupExpiredTokens200>(
-      {url: `http://localhost:3000/auth/cleanup`, method: 'DELETE', signal
+      {url: `https://dpma-api.udv.org/auth/cleanup`, method: 'DELETE', signal
     },
       options);
     }
@@ -318,7 +318,7 @@ export const logoutUser = (
 
 
       return customInstance<LogoutUser200>(
-      {url: `http://localhost:3000/auth/logout`, method: 'POST', signal
+      {url: `https://dpma-api.udv.org/auth/logout`, method: 'POST', signal
     },
       options);
     }
@@ -381,7 +381,7 @@ export const initiateGoogleAuth = (
 
 
       return customInstance<InitiateGoogleAuth200>(
-      {url: `http://localhost:3000/auth/google`, method: 'GET', signal
+      {url: `https://dpma-api.udv.org/auth/google`, method: 'GET', signal
     },
       options);
     }
@@ -391,7 +391,7 @@ export const initiateGoogleAuth = (
 
 export const getInitiateGoogleAuthQueryKey = () => {
     return [
-    `http://localhost:3000/auth/google`
+    `https://dpma-api.udv.org/auth/google`
     ] as const;
     }
 
@@ -474,7 +474,7 @@ export const refreshAccessToken = (
 
 
       return customInstance<RefreshAccessToken200>(
-      {url: `http://localhost:3000/auth/refresh`, method: 'POST', signal
+      {url: `https://dpma-api.udv.org/auth/refresh`, method: 'POST', signal
     },
       options);
     }

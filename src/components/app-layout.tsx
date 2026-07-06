@@ -1,9 +1,14 @@
 import { NavLink, Outlet, useNavigate } from 'react-router-dom'
 import {
+  BarChart3,
+  CalendarDays,
+  FlaskConical,
   Layers,
   LayoutDashboard,
+  Leaf,
   LogOut,
   MapPin,
+  Settings,
   Users,
 } from 'lucide-react'
 import { useAuth } from '@/hooks/use-auth'
@@ -13,9 +18,14 @@ import { Button } from '@/components/ui/button'
 // Painel é só leitura (dados vêm do Cognito). Acesso já é gated na ProtectedRoute.
 const NAV = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
+  { to: '/relatorios', label: 'Relatórios', icon: BarChart3, end: false },
+  { to: '/sessoes', label: 'Sessões', icon: CalendarDays, end: false },
+  { to: '/preparos', label: 'Preparos', icon: FlaskConical, end: false },
+  { to: '/estoque', label: 'Estoque', icon: Leaf, end: false },
   { to: '/usuarios', label: 'Usuários', icon: Users, end: false },
   { to: '/regioes', label: 'Regiões', icon: MapPin, end: false },
   { to: '/nucleos', label: 'Núcleos', icon: Layers, end: false },
+  { to: '/configuracoes', label: 'Configurações', icon: Settings, end: false },
 ]
 
 export function AppLayout() {

@@ -65,7 +65,7 @@ const withQueryKey = <T extends object, K>(query: T, queryKey: K): T & { queryKe
 };
 
 /**
- * Cria uma planilha na conta Google do usuário com três abas: Sessões, Preparos e Resultados. Se já existir, substitui os dados.
+ * Cria uma planilha na conta Google do usuário com as abas: Sessões, Preparos, Resultados e Estoque de Vegetal. Se já existir, substitui os dados.
  * @summary Create or overwrite Google Sheet for User
  */
 export const createOrUpdateMultiSheet = (
@@ -75,7 +75,7 @@ export const createOrUpdateMultiSheet = (
 
 
       return customInstance<CreateOrUpdateMultiSheet201>(
-      {url: `http://localhost:3000/sheets/create`, method: 'POST',
+      {url: `https://dpma-api.udv.org/sheets/create`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: createOrUpdateMultiSheetBody, signal
     },
@@ -140,7 +140,7 @@ export const listUserSheets = (
 
 
       return customInstance<ListUserSheets200>(
-      {url: `http://localhost:3000/sheets`, method: 'GET',
+      {url: `https://dpma-api.udv.org/sheets`, method: 'GET',
         params, signal
     },
       options);
@@ -151,7 +151,7 @@ export const listUserSheets = (
 
 export const getListUserSheetsQueryKey = (params?: ListUserSheetsParams,) => {
     return [
-    `http://localhost:3000/sheets`, ...(params ? [params] : [])
+    `https://dpma-api.udv.org/sheets`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -234,7 +234,7 @@ export const addDataToSheet = (
 
 
       return customInstance<AddDataToSheet201>(
-      {url: `http://localhost:3000/sheets/add`, method: 'POST',
+      {url: `https://dpma-api.udv.org/sheets/add`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: addDataToSheetBody, signal
     },
@@ -299,7 +299,7 @@ export const deleteRowByValue = (
 
 
       return customInstance<DeleteRowByValue200>(
-      {url: `http://localhost:3000/sheets/delete-row-by-value`, method: 'DELETE',
+      {url: `https://dpma-api.udv.org/sheets/delete-row-by-value`, method: 'DELETE',
       headers: {'Content-Type': 'application/json', },
       data: deleteRowByValueBody, signal
     },
@@ -364,7 +364,7 @@ export const deleteSheetByTitle = (
 
 
       return customInstance<DeleteSheetByTitle200>(
-      {url: `http://localhost:3000/sheets/${title}`, method: 'DELETE', signal
+      {url: `https://dpma-api.udv.org/sheets/${title}`, method: 'DELETE', signal
     },
       options);
     }

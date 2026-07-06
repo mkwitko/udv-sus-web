@@ -30,6 +30,7 @@ import type {
   GetSessaoId404,
   GetSessaoParams,
   PostSessaoCreate201,
+  PostSessaoCreate400,
   PostSessaoCreateBody,
   PutSessaoUpdate200,
   PutSessaoUpdateBody
@@ -67,7 +68,7 @@ export const postSessaoCreate = (
 
 
       return customInstance<PostSessaoCreate201>(
-      {url: `http://localhost:3000/sessao/create`, method: 'POST',
+      {url: `https://dpma-api.udv.org/sessao/create`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postSessaoCreateBody, signal
     },
@@ -77,7 +78,7 @@ export const postSessaoCreate = (
 
 
 
-export const getPostSessaoCreateMutationOptions = <TError = unknown,
+export const getPostSessaoCreateMutationOptions = <TError = PostSessaoCreate400,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postSessaoCreate>>, TError,{data: PostSessaoCreateBody}, TContext>, request?: SecondParameter<typeof customInstance>}
 ): UseMutationOptions<Awaited<ReturnType<typeof postSessaoCreate>>, TError,{data: PostSessaoCreateBody}, TContext> => {
 
@@ -106,12 +107,12 @@ const {mutation: mutationOptions, request: requestOptions} = options ?
 
     export type PostSessaoCreateMutationResult = NonNullable<Awaited<ReturnType<typeof postSessaoCreate>>>
     export type PostSessaoCreateMutationBody = PostSessaoCreateBody
-    export type PostSessaoCreateMutationError = unknown
+    export type PostSessaoCreateMutationError = PostSessaoCreate400
 
     /**
  * @summary Create Sessao
  */
-export const usePostSessaoCreate = <TError = unknown,
+export const usePostSessaoCreate = <TError = PostSessaoCreate400,
     TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof postSessaoCreate>>, TError,{data: PostSessaoCreateBody}, TContext>, request?: SecondParameter<typeof customInstance>}
  , queryClient?: QueryClient): UseMutationResult<
         Awaited<ReturnType<typeof postSessaoCreate>>,
@@ -131,7 +132,7 @@ export const putSessaoUpdate = (
 
 
       return customInstance<PutSessaoUpdate200>(
-      {url: `http://localhost:3000/sessao/update`, method: 'PUT',
+      {url: `https://dpma-api.udv.org/sessao/update`, method: 'PUT',
       headers: {'Content-Type': 'application/json', },
       data: putSessaoUpdateBody, signal
     },
@@ -195,7 +196,7 @@ export const getSessaoId = (
 
 
       return customInstance<GetSessaoId200>(
-      {url: `http://localhost:3000/sessao/${id}`, method: 'GET', signal
+      {url: `https://dpma-api.udv.org/sessao/${id}`, method: 'GET', signal
     },
       options);
     }
@@ -205,7 +206,7 @@ export const getSessaoId = (
 
 export const getGetSessaoIdQueryKey = (id: string,) => {
     return [
-    `http://localhost:3000/sessao/${id}`
+    `https://dpma-api.udv.org/sessao/${id}`
     ] as const;
     }
 
@@ -287,7 +288,7 @@ export const deleteSessaoId = (
 
 
       return customInstance<DeleteSessaoId200>(
-      {url: `http://localhost:3000/sessao/${id}`, method: 'DELETE', signal
+      {url: `https://dpma-api.udv.org/sessao/${id}`, method: 'DELETE', signal
     },
       options);
     }
@@ -349,7 +350,7 @@ export const getSessao = (
 
 
       return customInstance<GetSessao200Item[]>(
-      {url: `http://localhost:3000/sessao`, method: 'GET',
+      {url: `https://dpma-api.udv.org/sessao`, method: 'GET',
         params, signal
     },
       options);
@@ -360,7 +361,7 @@ export const getSessao = (
 
 export const getGetSessaoQueryKey = (params?: GetSessaoParams,) => {
     return [
-    `http://localhost:3000/sessao`, ...(params ? [params] : [])
+    `https://dpma-api.udv.org/sessao`, ...(params ? [params] : [])
     ] as const;
     }
 

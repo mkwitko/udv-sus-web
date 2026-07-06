@@ -57,7 +57,7 @@ export const getAllRegioes = (
 
 
       return customInstance<GetAllRegioes200Item[]>(
-      {url: `http://localhost:3000/regions`, method: 'GET', signal
+      {url: `https://dpma-api.udv.org/regions`, method: 'GET', signal
     },
       options);
     }
@@ -67,7 +67,7 @@ export const getAllRegioes = (
 
 export const getGetAllRegioesQueryKey = () => {
     return [
-    `http://localhost:3000/regions`
+    `https://dpma-api.udv.org/regions`
     ] as const;
     }
 
@@ -149,7 +149,7 @@ export const getRegionById = (
 
 
       return customInstance<GetRegionById200>(
-      {url: `http://localhost:3000/regions/find`, method: 'GET',
+      {url: `https://dpma-api.udv.org/regions/find`, method: 'GET',
         params, signal
     },
       options);
@@ -160,7 +160,7 @@ export const getRegionById = (
 
 export const getGetRegionByIdQueryKey = (params?: GetRegionByIdParams,) => {
     return [
-    `http://localhost:3000/regions/find`, ...(params ? [params] : [])
+    `https://dpma-api.udv.org/regions/find`, ...(params ? [params] : [])
     ] as const;
     }
 

@@ -67,7 +67,7 @@ export const postChacronaCreate = (
 
 
       return customInstance<PostChacronaCreate201>(
-      {url: `http://localhost:3000/chacrona/create`, method: 'POST',
+      {url: `https://dpma-api.udv.org/chacrona/create`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postChacronaCreateBody, signal
     },
@@ -131,7 +131,7 @@ export const putChacronaUpdate = (
 
 
       return customInstance<PutChacronaUpdate200>(
-      {url: `http://localhost:3000/chacrona/update`, method: 'PUT',
+      {url: `https://dpma-api.udv.org/chacrona/update`, method: 'PUT',
       headers: {'Content-Type': 'application/json', },
       data: putChacronaUpdateBody, signal
     },
@@ -195,7 +195,7 @@ export const getChacronaId = (
 
 
       return customInstance<GetChacronaId200>(
-      {url: `http://localhost:3000/chacrona/${id}`, method: 'GET', signal
+      {url: `https://dpma-api.udv.org/chacrona/${id}`, method: 'GET', signal
     },
       options);
     }
@@ -205,7 +205,7 @@ export const getChacronaId = (
 
 export const getGetChacronaIdQueryKey = (id: string,) => {
     return [
-    `http://localhost:3000/chacrona/${id}`
+    `https://dpma-api.udv.org/chacrona/${id}`
     ] as const;
     }
 
@@ -288,7 +288,7 @@ export const deleteChacronaId = (
 
 
       return customInstance<DeleteChacronaId200>(
-      {url: `http://localhost:3000/chacrona/${id}`, method: 'DELETE',
+      {url: `https://dpma-api.udv.org/chacrona/${id}`, method: 'DELETE',
         params, signal
     },
       options);
@@ -351,7 +351,7 @@ export const getChacrona = (
 
 
       return customInstance<GetChacrona200Item[]>(
-      {url: `http://localhost:3000/chacrona`, method: 'GET', signal
+      {url: `https://dpma-api.udv.org/chacrona`, method: 'GET', signal
     },
       options);
     }
@@ -361,7 +361,7 @@ export const getChacrona = (
 
 export const getGetChacronaQueryKey = () => {
     return [
-    `http://localhost:3000/chacrona`
+    `https://dpma-api.udv.org/chacrona`
     ] as const;
     }
 

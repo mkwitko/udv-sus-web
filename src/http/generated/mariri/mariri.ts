@@ -67,7 +67,7 @@ export const postMaririCreate = (
 
 
       return customInstance<PostMaririCreate201>(
-      {url: `http://localhost:3000/mariri/create`, method: 'POST',
+      {url: `https://dpma-api.udv.org/mariri/create`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: postMaririCreateBody, signal
     },
@@ -131,7 +131,7 @@ export const putMaririUpdate = (
 
 
       return customInstance<PutMaririUpdate200>(
-      {url: `http://localhost:3000/mariri/update`, method: 'PUT',
+      {url: `https://dpma-api.udv.org/mariri/update`, method: 'PUT',
       headers: {'Content-Type': 'application/json', },
       data: putMaririUpdateBody, signal
     },
@@ -195,7 +195,7 @@ export const getMaririId = (
 
 
       return customInstance<GetMaririId200>(
-      {url: `http://localhost:3000/mariri/${id}`, method: 'GET', signal
+      {url: `https://dpma-api.udv.org/mariri/${id}`, method: 'GET', signal
     },
       options);
     }
@@ -205,7 +205,7 @@ export const getMaririId = (
 
 export const getGetMaririIdQueryKey = (id: string,) => {
     return [
-    `http://localhost:3000/mariri/${id}`
+    `https://dpma-api.udv.org/mariri/${id}`
     ] as const;
     }
 
@@ -288,7 +288,7 @@ export const deleteMaririId = (
 
 
       return customInstance<DeleteMaririId200>(
-      {url: `http://localhost:3000/mariri/${id}`, method: 'DELETE',
+      {url: `https://dpma-api.udv.org/mariri/${id}`, method: 'DELETE',
         params, signal
     },
       options);
@@ -351,7 +351,7 @@ export const getMariri = (
 
 
       return customInstance<GetMariri200Item[]>(
-      {url: `http://localhost:3000/mariri`, method: 'GET', signal
+      {url: `https://dpma-api.udv.org/mariri`, method: 'GET', signal
     },
       options);
     }
@@ -361,7 +361,7 @@ export const getMariri = (
 
 export const getGetMaririQueryKey = () => {
     return [
-    `http://localhost:3000/mariri`
+    `https://dpma-api.udv.org/mariri`
     ] as const;
     }
 

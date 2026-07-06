@@ -51,6 +51,7 @@ export type FindMe201NucleoRegioes = {
 export type FindMe201Nucleo = {
   id: string;
   nome: string;
+  estoqueAtivo: boolean;
   /** @nullable */
   regioes: FindMe201NucleoRegioes;
 } | null;
@@ -67,6 +68,7 @@ export type FindMe201 = {
   cargoNome: string | null;
   /** @nullable */
   cargoCodigo: string | null;
+  integracoesAtivo: boolean;
   cargos?: string[];
   permissoes: FindMe201PermissoesItem[];
   /** @nullable */
@@ -120,6 +122,7 @@ export type FindUserById201NucleoRegioes = {
 export type FindUserById201Nucleo = {
   id: string;
   nome: string;
+  estoqueAtivo: boolean;
   /** @nullable */
   regioes: FindUserById201NucleoRegioes;
 } | null;
@@ -136,10 +139,20 @@ export type FindUserById201 = {
   cargoNome: string | null;
   /** @nullable */
   cargoCodigo: string | null;
+  integracoesAtivo: boolean;
   cargos?: string[];
   permissoes: FindUserById201PermissoesItem[];
   /** @nullable */
   nucleo: FindUserById201Nucleo;
+};
+
+export type UpdateUserConfigBody = {
+  integracoesAtivo?: boolean;
+};
+
+export type UpdateUserConfig200 = {
+  id: string;
+  integracoesAtivo: boolean;
 };
 
 export type PostChacronaCreateBody = {
@@ -416,6 +429,15 @@ export type GetRegionById200 = {
   id: string;
   nome: string;
 } | null;
+
+export type UpdateNucleoConfigBody = {
+  estoqueAtivo?: boolean;
+};
+
+export type UpdateNucleoConfig200 = {
+  id: string;
+  estoqueAtivo: boolean;
+};
 
 export type CreatePreparoBodyMariri = {
   pesoKg: string;
@@ -708,13 +730,31 @@ export type GetAllPreparos200Item = {
   lenha: GetAllPreparos200ItemLenha;
 };
 
+export type PostSessaoCreateBodyVegetaisItemLocal = typeof PostSessaoCreateBodyVegetaisItemLocal[keyof typeof PostSessaoCreateBodyVegetaisItemLocal];
+
+
+export const PostSessaoCreateBodyVegetaisItemLocal = {
+  estoque: 'estoque',
+  geladeira: 'geladeira',
+} as const;
+
+export type PostSessaoCreateBodyVegetaisItem = {
+  vegetalId: string;
+  quantidade: string;
+  local: PostSessaoCreateBodyVegetaisItemLocal;
+  filtrado?: string;
+};
+
 export type PostSessaoCreateBody = {
   sessao: string;
   pessoas: string;
   data: string;
   descricao?: string;
-  quantidadeVegetal: string;
+  quantidadeVegetal?: string;
   nucleosId?: string;
+  vegetais?: PostSessaoCreateBodyVegetaisItem[];
+  descontarEstoque?: boolean;
+  adicionarGeladeira?: boolean;
 };
 
 /**
@@ -733,6 +773,24 @@ export type PostSessaoCreate201Nucleos = {
   regioes: PostSessaoCreate201NucleosRegioes;
 } | null;
 
+/**
+ * @nullable
+ */
+export type PostSessaoCreate201VegetaisItemVegetal = {
+  id: string;
+  nome: string;
+  tipo: string;
+} | null;
+
+export type PostSessaoCreate201VegetaisItem = {
+  id: string;
+  quantidade: string;
+  local: string;
+  vegetalId: string;
+  /** @nullable */
+  vegetal?: PostSessaoCreate201VegetaisItemVegetal;
+};
+
 export type PostSessaoCreate201 = {
   id: string;
   sessao: string;
@@ -745,6 +803,26 @@ export type PostSessaoCreate201 = {
   nucleosId?: string | null;
   /** @nullable */
   Nucleos: PostSessaoCreate201Nucleos;
+  vegetais?: PostSessaoCreate201VegetaisItem[];
+};
+
+export type PostSessaoCreate400 = {
+  message: string;
+};
+
+export type PutSessaoUpdateBodyVegetaisItemLocal = typeof PutSessaoUpdateBodyVegetaisItemLocal[keyof typeof PutSessaoUpdateBodyVegetaisItemLocal];
+
+
+export const PutSessaoUpdateBodyVegetaisItemLocal = {
+  estoque: 'estoque',
+  geladeira: 'geladeira',
+} as const;
+
+export type PutSessaoUpdateBodyVegetaisItem = {
+  vegetalId: string;
+  quantidade: string;
+  local: PutSessaoUpdateBodyVegetaisItemLocal;
+  filtrado?: string;
 };
 
 export type PutSessaoUpdateBody = {
@@ -756,6 +834,9 @@ export type PutSessaoUpdateBody = {
   pessoas?: string;
   quantidadeVegetal?: string;
   nucleosId?: string;
+  vegetais?: PutSessaoUpdateBodyVegetaisItem[];
+  descontarEstoque?: boolean;
+  adicionarGeladeira?: boolean;
 };
 
 export type PutSessaoUpdate200 = {
@@ -778,6 +859,24 @@ export type GetSessaoId200Nucleos = {
   regioes: GetSessaoId200NucleosRegioes;
 } | null;
 
+/**
+ * @nullable
+ */
+export type GetSessaoId200VegetaisItemVegetal = {
+  id: string;
+  nome: string;
+  tipo: string;
+} | null;
+
+export type GetSessaoId200VegetaisItem = {
+  id: string;
+  quantidade: string;
+  local: string;
+  vegetalId: string;
+  /** @nullable */
+  vegetal?: GetSessaoId200VegetaisItemVegetal;
+};
+
 export type GetSessaoId200 = {
   id: string;
   sessao: string;
@@ -790,6 +889,7 @@ export type GetSessaoId200 = {
   nucleosId?: string | null;
   /** @nullable */
   Nucleos: GetSessaoId200Nucleos;
+  vegetais?: GetSessaoId200VegetaisItem[];
 };
 
 export type GetSessaoId404 = {
@@ -822,6 +922,24 @@ export type GetSessao200ItemNucleos = {
   regioes: GetSessao200ItemNucleosRegioes;
 } | null;
 
+/**
+ * @nullable
+ */
+export type GetSessao200ItemVegetaisItemVegetal = {
+  id: string;
+  nome: string;
+  tipo: string;
+} | null;
+
+export type GetSessao200ItemVegetaisItem = {
+  id: string;
+  quantidade: string;
+  local: string;
+  vegetalId: string;
+  /** @nullable */
+  vegetal?: GetSessao200ItemVegetaisItemVegetal;
+};
+
 export type GetSessao200Item = {
   id: string;
   sessao: string;
@@ -834,6 +952,228 @@ export type GetSessao200Item = {
   nucleosId?: string | null;
   /** @nullable */
   Nucleos: GetSessao200ItemNucleos;
+  vegetais?: GetSessao200ItemVegetaisItem[];
+};
+
+export type PostVegetalCreateBodyTipo = typeof PostVegetalCreateBodyTipo[keyof typeof PostVegetalCreateBodyTipo];
+
+
+export const PostVegetalCreateBodyTipo = {
+  caupuri: 'caupuri',
+  tucunaca: 'tucunaca',
+  caupuri_tucunaca: 'caupuri_tucunaca',
+} as const;
+
+export type PostVegetalCreateBody = {
+  nome: string;
+  tipo: PostVegetalCreateBodyTipo;
+  dataPreparo: string;
+  mestrePreparo: string;
+  /** @nullable */
+  observacoes?: string | null;
+  litrosEstoque?: string;
+  litrosGeladeira?: string;
+};
+
+/**
+ * @nullable
+ */
+export type PostVegetalCreate201NucleosRegioes = {
+  nome: string;
+} | null;
+
+/**
+ * @nullable
+ */
+export type PostVegetalCreate201Nucleos = {
+  nome: string;
+  /** @nullable */
+  regioes: PostVegetalCreate201NucleosRegioes;
+} | null;
+
+export type PostVegetalCreate201 = {
+  id: string;
+  nome: string;
+  tipo: string;
+  dataPreparo: string;
+  mestrePreparo: string;
+  /** @nullable */
+  observacoes?: string | null;
+  litrosEstoque: string;
+  litrosGeladeira: string;
+  deletado?: boolean;
+  /** @nullable */
+  nucleosId?: string | null;
+  /** @nullable */
+  Nucleos?: PostVegetalCreate201Nucleos;
+};
+
+export type PutVegetalUpdateBodyTipo = typeof PutVegetalUpdateBodyTipo[keyof typeof PutVegetalUpdateBodyTipo];
+
+
+export const PutVegetalUpdateBodyTipo = {
+  caupuri: 'caupuri',
+  tucunaca: 'tucunaca',
+  caupuri_tucunaca: 'caupuri_tucunaca',
+} as const;
+
+export type PutVegetalUpdateBody = {
+  id: string;
+  nome?: string;
+  tipo?: PutVegetalUpdateBodyTipo;
+  dataPreparo?: string;
+  mestrePreparo?: string;
+  /** @nullable */
+  observacoes?: string | null;
+  litrosEstoque?: string;
+  litrosGeladeira?: string;
+  deletado?: boolean;
+};
+
+/**
+ * @nullable
+ */
+export type PutVegetalUpdate200NucleosRegioes = {
+  nome: string;
+} | null;
+
+/**
+ * @nullable
+ */
+export type PutVegetalUpdate200Nucleos = {
+  nome: string;
+  /** @nullable */
+  regioes: PutVegetalUpdate200NucleosRegioes;
+} | null;
+
+export type PutVegetalUpdate200 = {
+  id: string;
+  nome: string;
+  tipo: string;
+  dataPreparo: string;
+  mestrePreparo: string;
+  /** @nullable */
+  observacoes?: string | null;
+  litrosEstoque: string;
+  litrosGeladeira: string;
+  deletado?: boolean;
+  /** @nullable */
+  nucleosId?: string | null;
+  /** @nullable */
+  Nucleos?: PutVegetalUpdate200Nucleos;
+};
+
+/**
+ * @nullable
+ */
+export type GetVegetalId200NucleosRegioes = {
+  nome: string;
+} | null;
+
+/**
+ * @nullable
+ */
+export type GetVegetalId200Nucleos = {
+  nome: string;
+  /** @nullable */
+  regioes: GetVegetalId200NucleosRegioes;
+} | null;
+
+export type GetVegetalId200 = {
+  id: string;
+  nome: string;
+  tipo: string;
+  dataPreparo: string;
+  mestrePreparo: string;
+  /** @nullable */
+  observacoes?: string | null;
+  litrosEstoque: string;
+  litrosGeladeira: string;
+  deletado?: boolean;
+  /** @nullable */
+  nucleosId?: string | null;
+  /** @nullable */
+  Nucleos?: GetVegetalId200Nucleos;
+};
+
+export type GetVegetalId404 = {
+  message: string;
+};
+
+export type DeleteVegetalIdParams = {
+soft?: boolean;
+};
+
+/**
+ * @nullable
+ */
+export type DeleteVegetalId200NucleosRegioes = {
+  nome: string;
+} | null;
+
+/**
+ * @nullable
+ */
+export type DeleteVegetalId200Nucleos = {
+  nome: string;
+  /** @nullable */
+  regioes: DeleteVegetalId200NucleosRegioes;
+} | null;
+
+export type DeleteVegetalId200 = {
+  id: string;
+  nome: string;
+  tipo: string;
+  dataPreparo: string;
+  mestrePreparo: string;
+  /** @nullable */
+  observacoes?: string | null;
+  litrosEstoque: string;
+  litrosGeladeira: string;
+  deletado?: boolean;
+  /** @nullable */
+  nucleosId?: string | null;
+  /** @nullable */
+  Nucleos?: DeleteVegetalId200Nucleos;
+};
+
+export type GetVegetalParams = {
+generalView: string;
+regionView: string;
+nucleoView: string;
+};
+
+/**
+ * @nullable
+ */
+export type GetVegetal200ItemNucleosRegioes = {
+  nome: string;
+} | null;
+
+/**
+ * @nullable
+ */
+export type GetVegetal200ItemNucleos = {
+  nome: string;
+  /** @nullable */
+  regioes: GetVegetal200ItemNucleosRegioes;
+} | null;
+
+export type GetVegetal200Item = {
+  id: string;
+  nome: string;
+  tipo: string;
+  dataPreparo: string;
+  mestrePreparo: string;
+  /** @nullable */
+  observacoes?: string | null;
+  litrosEstoque: string;
+  litrosGeladeira: string;
+  deletado?: boolean;
+  /** @nullable */
+  nucleosId?: string | null;
+  /** @nullable */
+  Nucleos?: GetVegetal200ItemNucleos;
 };
 
 export type CreateOrUpdateMultiSheetBodyPreparosMergesItem = {
@@ -1022,6 +1362,99 @@ export type CreateOrUpdateMultiSheetBodyResultadosFormattingItem = {
   [key: string]: unknown;
  };
 
+export type CreateOrUpdateMultiSheetBodyVegetalMergesItem = {
+  startRow: number;
+  endRow: number;
+  startColumn: number;
+  endColumn: number;
+};
+
+export type CreateOrUpdateMultiSheetBodyVegetalFormattingItemRepeatCellRange = {
+  sheetId: number;
+  startRowIndex: number;
+  endRowIndex: number;
+  startColumnIndex: number;
+  endColumnIndex: number;
+};
+
+export type CreateOrUpdateMultiSheetBodyVegetalFormattingItemRepeatCellCellUserEnteredFormatBackgroundColor = {
+  red: number;
+  green: number;
+  blue: number;
+};
+
+export type CreateOrUpdateMultiSheetBodyVegetalFormattingItemRepeatCellCellUserEnteredFormatTextFormatForegroundColor = {
+  red: number;
+  green: number;
+  blue: number;
+};
+
+export type CreateOrUpdateMultiSheetBodyVegetalFormattingItemRepeatCellCellUserEnteredFormatTextFormat = {
+  bold?: boolean;
+  fontSize?: number;
+  foregroundColor?: CreateOrUpdateMultiSheetBodyVegetalFormattingItemRepeatCellCellUserEnteredFormatTextFormatForegroundColor;
+};
+
+export type CreateOrUpdateMultiSheetBodyVegetalFormattingItemRepeatCellCellUserEnteredFormat = {
+  backgroundColor?: CreateOrUpdateMultiSheetBodyVegetalFormattingItemRepeatCellCellUserEnteredFormatBackgroundColor;
+  textFormat?: CreateOrUpdateMultiSheetBodyVegetalFormattingItemRepeatCellCellUserEnteredFormatTextFormat;
+  horizontalAlignment?: string;
+  verticalAlignment?: string;
+  wrapStrategy?: string;
+};
+
+export type CreateOrUpdateMultiSheetBodyVegetalFormattingItemRepeatCellCell = {
+  userEnteredFormat: CreateOrUpdateMultiSheetBodyVegetalFormattingItemRepeatCellCellUserEnteredFormat;
+};
+
+export type CreateOrUpdateMultiSheetBodyVegetalFormattingItemRepeatCell = {
+  range: CreateOrUpdateMultiSheetBodyVegetalFormattingItemRepeatCellRange;
+  cell: CreateOrUpdateMultiSheetBodyVegetalFormattingItemRepeatCellCell;
+  fields: string;
+};
+
+export type CreateOrUpdateMultiSheetBodyVegetalFormattingItemUpdateBordersRange = {
+  sheetId: number;
+  startRowIndex: number;
+  endRowIndex: number;
+  startColumnIndex: number;
+  endColumnIndex: number;
+};
+
+export type CreateOrUpdateMultiSheetBodyVegetalFormattingItemUpdateBorders = {
+  range: CreateOrUpdateMultiSheetBodyVegetalFormattingItemUpdateBordersRange;
+  top?: unknown;
+  bottom?: unknown;
+  left?: unknown;
+  right?: unknown;
+  innerHorizontal?: unknown;
+  innerVertical?: unknown;
+};
+
+export type CreateOrUpdateMultiSheetBodyVegetalFormattingItemUpdateDimensionPropertiesRange = {
+  sheetId: number;
+  dimension: string;
+  startIndex: number;
+  endIndex: number;
+};
+
+export type CreateOrUpdateMultiSheetBodyVegetalFormattingItemUpdateDimensionPropertiesProperties = {
+  pixelSize: number;
+};
+
+export type CreateOrUpdateMultiSheetBodyVegetalFormattingItemUpdateDimensionProperties = {
+  range: CreateOrUpdateMultiSheetBodyVegetalFormattingItemUpdateDimensionPropertiesRange;
+  properties: CreateOrUpdateMultiSheetBodyVegetalFormattingItemUpdateDimensionPropertiesProperties;
+  fields: string;
+};
+
+export type CreateOrUpdateMultiSheetBodyVegetalFormattingItem = {
+  repeatCell?: CreateOrUpdateMultiSheetBodyVegetalFormattingItemRepeatCell;
+  updateBorders?: CreateOrUpdateMultiSheetBodyVegetalFormattingItemUpdateBorders;
+  updateDimensionProperties?: CreateOrUpdateMultiSheetBodyVegetalFormattingItemUpdateDimensionProperties;
+  [key: string]: unknown;
+ };
+
 export type CreateOrUpdateMultiSheetBody = {
   /** @minLength 1 */
   title: string;
@@ -1032,6 +1465,9 @@ export type CreateOrUpdateMultiSheetBody = {
   resultados?: ((unknown | string | null)[])[];
   resultadosMerges?: CreateOrUpdateMultiSheetBodyResultadosMergesItem[];
   resultadosFormatting?: CreateOrUpdateMultiSheetBodyResultadosFormattingItem[];
+  vegetal?: ((unknown | string | null)[])[];
+  vegetalMerges?: CreateOrUpdateMultiSheetBodyVegetalMergesItem[];
+  vegetalFormatting?: CreateOrUpdateMultiSheetBodyVegetalFormattingItem[];
 };
 
 export type CreateOrUpdateMultiSheet201 = {

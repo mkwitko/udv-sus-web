@@ -5,16 +5,20 @@
  * OpenAPI spec version: 1.0.0
  */
 import {
+  useMutation,
   useQuery
 } from '@tanstack/react-query';
 import type {
   DataTag,
   DefinedInitialDataOptions,
   DefinedUseQueryResult,
+  MutationFunction,
   QueryClient,
   QueryFunction,
   QueryKey,
   UndefinedInitialDataOptions,
+  UseMutationOptions,
+  UseMutationResult,
   UseQueryOptions,
   UseQueryResult
 } from '@tanstack/react-query';
@@ -23,7 +27,9 @@ import type {
   GetAllNucleos200Item,
   GetNucleoById200,
   GetNucleoByIdParams,
-  GetNucleoRegionId200Item
+  GetNucleoRegionId200Item,
+  UpdateNucleoConfig200,
+  UpdateNucleoConfigBody
 } from '../api.schemas';
 
 import { customInstance } from '../../../lib/api';
@@ -59,7 +65,7 @@ export const getNucleoById = (
 
 
       return customInstance<GetNucleoById200>(
-      {url: `http://localhost:3000/nucleo/find`, method: 'GET',
+      {url: `https://dpma-api.udv.org/nucleo/find`, method: 'GET',
         params, signal
     },
       options);
@@ -70,7 +76,7 @@ export const getNucleoById = (
 
 export const getGetNucleoByIdQueryKey = (params?: GetNucleoByIdParams,) => {
     return [
-    `http://localhost:3000/nucleo/find`, ...(params ? [params] : [])
+    `https://dpma-api.udv.org/nucleo/find`, ...(params ? [params] : [])
     ] as const;
     }
 
@@ -153,7 +159,7 @@ export const getNucleoRegionId = (
 
 
       return customInstance<GetNucleoRegionId200Item[]>(
-      {url: `http://localhost:3000/nucleo/region/${id}`, method: 'GET', signal
+      {url: `https://dpma-api.udv.org/nucleo/region/${id}`, method: 'GET', signal
     },
       options);
     }
@@ -163,7 +169,7 @@ export const getNucleoRegionId = (
 
 export const getGetNucleoRegionIdQueryKey = (id: string,) => {
     return [
-    `http://localhost:3000/nucleo/region/${id}`
+    `https://dpma-api.udv.org/nucleo/region/${id}`
     ] as const;
     }
 
@@ -246,7 +252,7 @@ export const getAllNucleos = (
 
 
       return customInstance<GetAllNucleos200Item[]>(
-      {url: `http://localhost:3000/nucleo`, method: 'GET', signal
+      {url: `https://dpma-api.udv.org/nucleo`, method: 'GET', signal
     },
       options);
     }
@@ -256,7 +262,7 @@ export const getAllNucleos = (
 
 export const getGetAllNucleosQueryKey = () => {
     return [
-    `http://localhost:3000/nucleo`
+    `https://dpma-api.udv.org/nucleo`
     ] as const;
     }
 
@@ -328,3 +334,68 @@ export function useGetAllNucleos<TData = Awaited<ReturnType<typeof getAllNucleos
 
 
 
+/**
+ * Atualiza as funcionalidades opcionais do próprio núcleo.
+ * @summary Update Nucleo Config
+ */
+export const updateNucleoConfig = (
+    updateNucleoConfigBody?: UpdateNucleoConfigBody,
+ options?: SecondParameter<typeof customInstance>,signal?: AbortSignal
+) => {
+
+
+      return customInstance<UpdateNucleoConfig200>(
+      {url: `https://dpma-api.udv.org/nucleo/config`, method: 'PUT',
+      headers: {'Content-Type': 'application/json', },
+      data: updateNucleoConfigBody, signal
+    },
+      options);
+    }
+
+
+
+
+export const getUpdateNucleoConfigMutationOptions = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateNucleoConfig>>, TError,{data?: UpdateNucleoConfigBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+): UseMutationOptions<Awaited<ReturnType<typeof updateNucleoConfig>>, TError,{data?: UpdateNucleoConfigBody}, TContext> => {
+
+const mutationKey = ['updateNucleoConfig'];
+const {mutation: mutationOptions, request: requestOptions} = options ?
+      options.mutation && 'mutationKey' in options.mutation && options.mutation.mutationKey ?
+      options
+      : {...options, mutation: {...options.mutation, mutationKey}}
+      : {mutation: { mutationKey, }, request: undefined};
+
+
+
+
+      const mutationFn: MutationFunction<Awaited<ReturnType<typeof updateNucleoConfig>>, {data?: UpdateNucleoConfigBody}> = (props) => {
+          const {data} = props ?? {};
+
+          return  updateNucleoConfig(data,requestOptions)
+        }
+
+
+
+
+
+
+  return  { mutationFn, ...mutationOptions }}
+
+    export type UpdateNucleoConfigMutationResult = NonNullable<Awaited<ReturnType<typeof updateNucleoConfig>>>
+    export type UpdateNucleoConfigMutationBody = UpdateNucleoConfigBody | undefined
+    export type UpdateNucleoConfigMutationError = unknown
+
+    /**
+ * @summary Update Nucleo Config
+ */
+export const useUpdateNucleoConfig = <TError = unknown,
+    TContext = unknown>(options?: { mutation?:UseMutationOptions<Awaited<ReturnType<typeof updateNucleoConfig>>, TError,{data?: UpdateNucleoConfigBody}, TContext>, request?: SecondParameter<typeof customInstance>}
+ , queryClient?: QueryClient): UseMutationResult<
+        Awaited<ReturnType<typeof updateNucleoConfig>>,
+        TError,
+        {data?: UpdateNucleoConfigBody},
+        TContext
+      > => {
+      return useMutation(getUpdateNucleoConfigMutationOptions(options), queryClient);
+    }

@@ -55,7 +55,7 @@ export const getPermissoes = (
 
 
       return customInstance<GetPermissoes200Item[]>(
-      {url: `http://localhost:3000/permissoes`, method: 'GET', signal
+      {url: `https://dpma-api.udv.org/permissoes`, method: 'GET', signal
     },
       options);
     }
@@ -65,7 +65,7 @@ export const getPermissoes = (
 
 export const getGetPermissoesQueryKey = () => {
     return [
-    `http://localhost:3000/permissoes`
+    `https://dpma-api.udv.org/permissoes`
     ] as const;
     }
 

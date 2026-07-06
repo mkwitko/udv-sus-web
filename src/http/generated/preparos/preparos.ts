@@ -68,7 +68,7 @@ export const createPreparo = (
 
 
       return customInstance<CreatePreparo201>(
-      {url: `http://localhost:3000/preparo/create`, method: 'POST',
+      {url: `https://dpma-api.udv.org/preparo/create`, method: 'POST',
       headers: {'Content-Type': 'application/json', },
       data: createPreparoBody, signal
     },
@@ -132,7 +132,7 @@ export const updatePreparo = (
 
 
       return customInstance<UpdatePreparo200>(
-      {url: `http://localhost:3000/preparo/update`, method: 'PUT',
+      {url: `https://dpma-api.udv.org/preparo/update`, method: 'PUT',
       headers: {'Content-Type': 'application/json', },
       data: updatePreparoBody, signal
     },
@@ -196,7 +196,7 @@ export const getPreparoById = (
 
 
       return customInstance<GetPreparoById200>(
-      {url: `http://localhost:3000/preparo/${id}`, method: 'GET', signal
+      {url: `https://dpma-api.udv.org/preparo/${id}`, method: 'GET', signal
     },
       options);
     }
@@ -206,7 +206,7 @@ export const getPreparoById = (
 
 export const getGetPreparoByIdQueryKey = (id: string,) => {
     return [
-    `http://localhost:3000/preparo/${id}`
+    `https://dpma-api.udv.org/preparo/${id}`
     ] as const;
     }
 
@@ -289,7 +289,7 @@ export const deletePreparo = (
 
 
       return customInstance<DeletePreparo200>(
-      {url: `http://localhost:3000/preparo/${id}`, method: 'DELETE',
+      {url: `https://dpma-api.udv.org/preparo/${id}`, method: 'DELETE',
         params, signal
     },
       options);
@@ -352,7 +352,7 @@ export const getAllPreparos = (
 
 
       return customInstance<GetAllPreparos200Item[]>(
-      {url: `http://localhost:3000/preparo`, method: 'GET',
+      {url: `https://dpma-api.udv.org/preparo`, method: 'GET',
         params, signal
     },
       options);
@@ -363,7 +363,7 @@ export const getAllPreparos = (
 
 export const getGetAllPreparosQueryKey = (params?: GetAllPreparosParams,) => {
     return [
-    `http://localhost:3000/preparo`, ...(params ? [params] : [])
+    `https://dpma-api.udv.org/preparo`, ...(params ? [params] : [])
     ] as const;
     }
 
